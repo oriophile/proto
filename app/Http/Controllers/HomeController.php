@@ -33,4 +33,7 @@ class HomeController extends Controller
     public function store() {
         return 'hi';
     }
+
+    public function save() {
+    }
 }
