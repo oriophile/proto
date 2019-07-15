@@ -14,7 +14,7 @@ const editor = (function() {
                 return false;
             }
         }
-        console.log("Disabled navigation from backspace to prevent accidental navigation.");
+        //console.log("Disabled navigation from backspace to prevent accidental navigation.");
     }
 
     const removeEditorsExcept = function(target) {
@@ -51,10 +51,13 @@ const editor = (function() {
         });
         document.body.addEventListener("mouseover", function(e) {
         });
-        console.log("Click on body attached");
+        //console.log("Click on body attached");
 
         //Prevent from accidental navigation while deleting text (using backspace)
         disableBackspaceNavigation();
+    }
+    const message = (msg) => {
+        console.log(msg);
     }
     const save = () => {
         var page = {};
@@ -63,14 +66,21 @@ const editor = (function() {
             if(this.readyState == 4) {
                 if(this.status == 200) {
                     console.log(this.responseText);
+                } else if(this.status == 401) {
+                    message("You appear to be logged out, or are not authorized to save the file.");
+                } else if(this.status == 419) {
+                    message("This appears to be a system problem, please inform developer or development manager.");
+                    console.log("Invalid CSRF Token.");
                 }
             }
         }
         xhr.open("POST", "/editor/save", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("csrf", document.getElementByName("csrf-token")[0].getAttribute("csrf-token"));
+        xhr.setRequestHeader("X-CSRF-TOKEN", document.getElementsByName("csrf-token")[0].getAttribute("content"));
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhr.send(JSON.stringify(page));
+        let pageStr = JSON.stringify(page);
+        console.log(pageStr);
+        xhr.send(pageStr);
     }
     return {
         init,

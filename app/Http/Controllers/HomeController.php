@@ -26,14 +26,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function editor() {
-        return view('editor');
-    }
-
-    public function store() {
-        return 'hi';
-    }
-
-    public function save() {
+    public function editorSave(Request $request) {
+        dd($request->all());
+        return "hi";
     }
 }

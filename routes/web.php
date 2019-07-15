@@ -19,4 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/editor', 'HomeController@editor')->name('editor');
-Route::post('/editor/save', 'HomeController@editor')->name('editor-save');
+Route::post('/editor/save', 'HomeController@editorSave')->name('editor-save');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
