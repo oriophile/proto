@@ -21,6 +21,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/editor', 'HomeController@editor')->name('editor');
 Route::post('/editor/save', 'HomeController@editorSave')->name('editor-save');
 
+Route::get('/edit/{file}', function($file) {
+    return public_path() . "/" . $file;
+    return File::get(public_path() . "/" . $file);
+});
+
+Route::prefix('admin')->group(function() {
+    Route::get('{test}', function($test) {
+        echo $test;
+    });
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
